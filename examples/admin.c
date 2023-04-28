@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <margo.h>
-#include <alpha/alpha-admin.h>
+#include <YP/YP-admin.h>
 
 #define FATAL(...) \
     do { \
@@ -23,12 +23,12 @@ int main(int argc, char** argv)
     }
 
     hg_return_t hret;
-    alpha_return_t ret;
-    alpha_admin_t admin;
+    YP_return_t ret;
+    YP_admin_t admin;
     hg_addr_t svr_addr;
     const char* svr_addr_str = argv[1];
     uint16_t    provider_id  = atoi(argv[2]);
-    alpha_resource_id_t id;
+    YP_phonebook_id_t id;
 
     margo_instance_id mid = margo_init("tcp", MARGO_CLIENT_MODE, 0, 0);
     assert(mid);
@@ -41,39 +41,39 @@ int main(int argc, char** argv)
     }
 
     margo_info(mid,"Initializing admin");
-    ret = alpha_admin_init(mid, &admin);
-    if(ret != ALPHA_SUCCESS) {
-        FATAL(mid,"alpha_admin_init failed (ret = %d)", ret);
+    ret = YP_admin_init(mid, &admin);
+    if(ret != YP_SUCCESS) {
+        FATAL(mid,"YP_admin_init failed (ret = %d)", ret);
     }
 
-    margo_info(mid,"Creating resource");
-    ret = alpha_create_resource(admin, svr_addr, provider_id, NULL,
+    margo_info(mid,"Creating phonebook");
+    ret = YP_create_phonebook(admin, svr_addr, provider_id, NULL,
                                 "dummy", "{}", &id);
-    if(ret != ALPHA_SUCCESS) {
-        FATAL(mid,"alpha_create_resource failed (ret = %d)", ret);
+    if(ret != YP_SUCCESS) {
+        FATAL(mid,"YP_create_phonebook failed (ret = %d)", ret);
     }
 
-    margo_info(mid,"Listing resources");
-    alpha_resource_id_t ids[4];
+    margo_info(mid,"Listing phonebooks");
+    YP_phonebook_id_t ids[4];
     size_t count = 4;
-    ret = alpha_list_resources(admin, svr_addr, provider_id, NULL,
+    ret = YP_list_phonebooks(admin, svr_addr, provider_id, NULL,
                                ids, &count);
-    if(ret != ALPHA_SUCCESS) {
-        FATAL(mid,"alpha_list_resources failed (ret = %d)", ret);
+    if(ret != YP_SUCCESS) {
+        FATAL(mid,"YP_list_phonebooks failed (ret = %d)", ret);
     }
-    margo_info(mid,"Returned %ld resource ids", count);
+    margo_info(mid,"Returned %ld phonebook ids", count);
 
     unsigned i;
     for(i=0; i < count; i++) {
         char id_str[37];
-        alpha_resource_id_to_string(ids[i], id_str);
+        YP_phonebook_id_to_string(ids[i], id_str);
         margo_info(mid,"ID %d = %s", i, id_str);
     }
 
     margo_info(mid,"Finalizing admin");
-    ret = alpha_admin_finalize(admin);
-    if(ret != ALPHA_SUCCESS) {
-        FATAL(mid,"alpha_admin_finalize failed (ret = %d)", ret);
+    ret = YP_admin_finalize(admin);
+    if(ret != YP_SUCCESS) {
+        FATAL(mid,"YP_admin_finalize failed (ret = %d)", ret);
     }
 
     hret = margo_addr_free(mid, svr_addr);

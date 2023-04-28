@@ -7,15 +7,15 @@
 #define _ADMIN_H
 
 #include "types.h"
-#include "alpha/alpha-admin.h"
+#include "YP/YP-admin.h"
 
-typedef struct alpha_admin {
+typedef struct YP_admin {
    margo_instance_id mid;
-   hg_id_t           create_resource_id;
-   hg_id_t           open_resource_id;
-   hg_id_t           close_resource_id;
-   hg_id_t           destroy_resource_id;
-   hg_id_t           list_resources_id;
-} alpha_admin;
+   hg_id_t           create_phonebook_id;
+   hg_id_t           open_phonebook_id;
+   hg_id_t           close_phonebook_id;
+   hg_id_t           destroy_phonebook_id;
+   hg_id_t           list_phonebooks_id;
+} YP_admin;
 
 #endif

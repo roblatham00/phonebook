@@ -3,37 +3,37 @@
  *
  * See COPYRIGHT in top-level directory.
  */
-#ifndef __ALPHA_SERVER_H
-#define __ALPHA_SERVER_H
+#ifndef __YP_SERVER_H
+#define __YP_SERVER_H
 
-#include <alpha/alpha-common.h>
+#include <YP/YP-common.h>
 #include <margo.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define ALPHA_ABT_POOL_DEFAULT ABT_POOL_NULL
+#define YP_ABT_POOL_DEFAULT ABT_POOL_NULL
 
-typedef struct alpha_provider* alpha_provider_t;
-#define ALPHA_PROVIDER_NULL ((alpha_provider_t)NULL)
-#define ALPHA_PROVIDER_IGNORE ((alpha_provider_t*)NULL)
+typedef struct YP_provider* YP_provider_t;
+#define YP_PROVIDER_NULL ((YP_provider_t)NULL)
+#define YP_PROVIDER_IGNORE ((YP_provider_t*)NULL)
 
-struct alpha_provider_args {
+struct YP_provider_args {
     const char*        token;  // Security token
     const char*        config; // JSON configuration
     ABT_pool           pool;   // Pool used to run RPCs
     // ...
 };
 
-#define ALPHA_PROVIDER_ARGS_INIT { \
+#define YP_PROVIDER_ARGS_INIT { \
     /* .token = */ NULL, \
     /* .config = */ NULL, \
     /* .pool = */ ABT_POOL_NULL \
 }
 
 /**
- * @brief Creates a new ALPHA provider. If ALPHA_PROVIDER_IGNORE
+ * @brief Creates a new YP provider. If YP_PROVIDER_IGNORE
  * is passed as last argument, the provider will be automatically
  * destroyed when calling margo_finalize.
  *
@@ -42,23 +42,23 @@ struct alpha_provider_args {
  * @param[in] args argument structure
  * @param[out] provider provider
  *
- * @return ALPHA_SUCCESS or error code defined in alpha-common.h
+ * @return YP_SUCCESS or error code defined in YP-common.h
  */
-alpha_return_t alpha_provider_register(
+YP_return_t YP_provider_register(
         margo_instance_id mid,
         uint16_t provider_id,
-        const struct alpha_provider_args* args,
-        alpha_provider_t* provider);
+        const struct YP_provider_args* args,
+        YP_provider_t* provider);
 
 /**
  * @brief Destroys the Alpha provider and deregisters its RPC.
  *
  * @param[in] provider Alpha provider
  *
- * @return ALPHA_SUCCESS or error code defined in alpha-common.h
+ * @return YP_SUCCESS or error code defined in YP-common.h
  */
-alpha_return_t alpha_provider_destroy(
-        alpha_provider_t provider);
+YP_return_t YP_provider_destroy(
+        YP_provider_t provider);
 
 /**
  * @brief Returns a JSON-formatted configuration of the provider.
@@ -69,8 +69,8 @@ alpha_return_t alpha_provider_destroy(
  *
  * @return a heap-allocated JSON string or NULL in case of an error.
  */
-char* alpha_provider_get_config(
-        alpha_provider_t provider);
+char* YP_provider_get_config(
+        YP_provider_t provider);
 
 #ifdef __cplusplus
 }

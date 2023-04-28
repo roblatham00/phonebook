@@ -3,9 +3,9 @@ exec_prefix=${prefix}
 libdir=${prefix}/lib
 includedir=${prefix}/include
 
-Name: alpha-admin
+Name: YP-admin
 Description: <insert description here>
-Version: @ALPHA_VERSION@
+Version: @YP_VERSION@
 
 Requires: margo uuid
 Libs: -L${libdir} @ADMIN_PRIVATE_LIBS@

@@ -3,24 +3,24 @@
  *
  * See COPYRIGHT in top-level directory.
  */
-#ifndef __ALPHA_PROVIDER_HANDLE_H
-#define __ALPHA_PROVIDER_HANDLE_H
+#ifndef __YP_PROVIDER_HANDLE_H
+#define __YP_PROVIDER_HANDLE_H
 
 #include <margo.h>
-#include <alpha/alpha-common.h>
+#include <YP/YP-common.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct alpha_provider_handle {
+struct YP_provider_handle {
     margo_instance_id mid;
     hg_addr_t         addr;
     uint16_t          provider_id;
 };
 
-typedef struct alpha_provider_handle* alpha_provider_handle_t;
-#define ALPHA_PROVIDER_HANDLE_NULL ((alpha_provider_handle_t)NULL)
+typedef struct YP_provider_handle* YP_provider_handle_t;
+#define YP_PROVIDER_HANDLE_NULL ((YP_provider_handle_t)NULL)
 
 #ifdef __cplusplus
 }

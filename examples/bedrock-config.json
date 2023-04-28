@@ -1,14 +1,14 @@
 {
     "libraries": {
-        "alpha": "libalpha-bedrock-module.so"
+        "YP": "libYP-bedrock-module.so"
     },
     "providers": [
         {
-            "type": "alpha",
-            "name": "my-alpha-provider",
+            "type": "YP",
+            "name": "my-YP-provider",
             "provider_id": 42,
             "config": {
-                "resources": [
+                "phonebooks": [
                     {
                         "type": "dummy",
                         "config": {}
